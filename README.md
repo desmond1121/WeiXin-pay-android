@@ -28,10 +28,6 @@ OkHttp, link:[https://github.com/kenglxn/QRGen](https://github.com/square/okhttp
         /* post a unified order */
         order.postOrder(callback);
 
-
-        order.queryOrder(interval, times, callback);
-
-
         HttpCallBack callback = new HttpCallBack(){
 
             @Override
