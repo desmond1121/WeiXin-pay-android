@@ -17,13 +17,13 @@ import com.jiayiyao.wxpay.core.params.UnifyOrderParam;
 public class MainActivity extends Activity implements HttpCallBack{
     private static final String TAG = "MainActivity";
     //appid
-    public static final String APP_ID = "wx951dfd9b2dd8fc87";
+    public static final String APP_ID = "appid";
 
     //商户号
-    public static final String MCH_ID = "1228435202";
+    public static final String MCH_ID = "mchid";
 
     //API密钥，在商户平台设置
-    public static final  String API_KEY="bebd87202b974086bf179a6745bbce74";
+    public static final  String API_KEY="appkey";
 
 //    private SimpleDraweeView draweeView = null;
     private UnifyOrder order = null;
