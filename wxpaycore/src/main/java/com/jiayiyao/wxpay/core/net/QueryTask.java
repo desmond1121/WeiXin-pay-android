@@ -48,6 +48,7 @@ public class QueryTask extends BaseTask{
             for(int i=0; i<queryTimes; i++){
                 xmlResult = post(query);
                 wxResult = XMLHelper.parseToWxResult(xmlResult);
+                Log.i(TAG, "QueryTask.doInBackground()--info-- " + xmlResult);
                 if(!wxResult.commSuccess())return wxResult.getCommErrMsg();
                 if(!wxResult.returnSuccess())return wxResult.getReturnErrMsg();
                 if(wxResult.tradeSuccess())return SUCCESS;

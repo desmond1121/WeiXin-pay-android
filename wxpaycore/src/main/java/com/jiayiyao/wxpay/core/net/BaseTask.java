@@ -94,4 +94,9 @@ public class BaseTask extends AsyncTask<Object, Object, String>{
     protected State getState() {
         return state;
     }
+
+    public void finish(){
+        httpClient.cancel("cancel");
+        this.cancel(true);
+    }
 }

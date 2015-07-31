@@ -1,5 +1,6 @@
 package com.jiayiyao.wxpay.core.net;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import com.jiayiyao.wxpay.core.utils.XMLHelper;
@@ -22,10 +23,6 @@ public class WxResult {
      * 支付状态
      */
     public enum PayState{SUCCESS, NOTPAY, REFUND, CLOSED, REVOKED, UNDERPAYING, OTHER}
-
-    public static final int DEFAULT_QR_WIDTH = 200;
-    public static final int DEFAULT_QR_HEIGHT = 200;
-    public static final ImageType DEFAULT_IMAGE_TYPE = ImageType.JPG;
 
     public String errMsg = null;
 
@@ -82,31 +79,26 @@ public class WxResult {
         return Uri.fromFile(getPayQRPicFile());
     }
 
+    public Bitmap getPayQRBitmap(){
+        return ((QRCode) QRCode.from(getValue("code_url"))).bitmap();
+    }
+
+    public Bitmap getPayQRBitmap(int width, int height){
+        return ((QRCode) QRCode.from(getValue("code_url")).withSize(width, height)).bitmap();
+    }
+
     public File getPayQRPicFile(){
         return QRCode.from(getValue("code_url")).file();
     }
 
-    /**
-     * NOT IMPLEMENTED.
-     * @param weight
-     * @param height
-     * @return
-     */
-    public Uri getPayQRPicUri(int weight, int height){
-        // TODO: 2015/7/31
-        return null;
+    public Uri getPayQRPicUri(int width, int height){
+        return Uri.fromFile(getPayQRPicFile(width, height));
     }
 
-    /**
-     * NOT IMPLEMENTED.
-     * @param weight
-     * @param height
-     * @return
-     */
-    public File getPayQRPicFile(int weight, int height){
-        // TODO: 2015/7/31
-        return null;
+    public File getPayQRPicFile(int width, int height){
+        return QRCode.from(getValue("code_url")).withSize(width, height).file();
     }
+
 
     /* Get prepay ID */
     public String getPrepayId(){

@@ -15,23 +15,6 @@ OkHttp, link:[https://github.com/kenglxn/QRGen](https://github.com/square/okhttp
 
 #Post a UnifiedOrder
 
-        HttpCallBack callback = new HttpCallBack(){
-
-            @Override
-            void onSuccess(BaseTask.From msgFrom, WxResult result){
-                switch(msgFrom){
-                    handle results.
-                }
-            }
-
-            @Override
-            void onFail(BaseTask.From msgFrom, String err){
-                switch(msgFrom){
-                    handle error.
-                }
-            }
-        }
-
         UnifyOrderParam param = new UnifyOrderParam(APPID, MCHID)
                 .initOrder("description", total_Fee, "http://notify_url", "NATIVE")
                 .setOrderGenerator(new GenOrderRule() {
@@ -45,10 +28,34 @@ OkHttp, link:[https://github.com/kenglxn/QRGen](https://github.com/square/okhttp
         /* post a unified order */
         order.postOrder(callback);
 
-        /* query order status */
+
         order.queryOrder(interval, times, callback);
 
-        /* close order */
-        order.close(callback);
 
+        HttpCallBack callback = new HttpCallBack(){
+
+            @Override
+            void onSuccess(BaseTask.From msgFrom, WxResult result){
+                switch(msgFrom){
+                    case POST:
+                        /* get QR Bitmap (can also get uri and file) */
+                        imageView.setImageBitmap(result.getPayQRBitmap(500, 500));
+                        /* query order status */
+                        order.queryOrder(1000, 60, this);
+                        break;
+
+                    case QUERY:
+                        /* close order */
+                        order.closeOrder(this);
+                        break;
+                }
+            }
+
+            @Override
+            void onFail(BaseTask.From msgFrom, String err){
+                switch(msgFrom){
+                    handle error.
+                }
+            }
+        }
 

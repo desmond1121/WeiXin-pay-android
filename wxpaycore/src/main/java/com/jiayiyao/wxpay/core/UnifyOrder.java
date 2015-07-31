@@ -25,6 +25,10 @@ public class UnifyOrder {
     private String orderNumber;
     private Context mContext;
 
+    private QueryTask queryTask = null;
+    private PostTask postTask = null;
+    private CloseTask closeTask = null;
+
     /**
      * For NATIVE Order to use.
      * @param param
@@ -41,6 +45,9 @@ public class UnifyOrder {
     public UnifyOrder(Context context, UnifyOrderParam param){
         this.mParam = param;
         this.mContext = context;
+        if(postTask != null) postTask.finish();
+        if(queryTask != null) queryTask.finish();
+        if(closeTask != null) closeTask.finish();
     }
 
     /**
@@ -50,7 +57,8 @@ public class UnifyOrder {
      * @param callBack
      */
     public void postOrder(HttpCallBack callBack){
-        new PostTask(mParam, callBack).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        postTask = new PostTask(mParam, callBack);
+        postTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /**
@@ -89,11 +97,13 @@ public class UnifyOrder {
 
 
     public void queryOrder(int timeInterval, int times, HttpCallBack callback){
-        new QueryTask(mParam, timeInterval, times, callback).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        queryTask = new QueryTask(mParam, timeInterval, times, callback);
+        queryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public void closeOrder(HttpCallBack callback){
-        new CloseTask(mParam, callback).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        closeTask = new CloseTask(mParam, callback);
+        closeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public String randomAlphaInt(){
