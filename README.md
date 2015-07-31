@@ -5,9 +5,9 @@ a simple generation api of WeiXin pay on android.
 more details, see: [WeiXin Pay API](https://pay.weixin.qq.com/wiki/doc/api/index.html)
 
 #Dependencies:
--[QRGen](https://github.com/kenglxn/QRGen)
+QRGen, link:[https://github.com/kenglxn/QRGen](https://github.com/kenglxn/QRGen)
 
--[OkHttp](https://github.com/square/okhttp)
+OkHttp, link:[https://github.com/kenglxn/QRGen](https://github.com/square/okhttp)
 
 
 
