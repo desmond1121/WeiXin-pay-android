@@ -1,4 +1,4 @@
-# WXPay
+# WeiXin-pay-android
 微信官方的API太难用了，为微信NATIVE支付提供了简单实现，目前可通过简单的代码实现统一下单、生成二维码、查询订单、关闭订单。
 
 a simple generation api of WeiXin pay on android.
